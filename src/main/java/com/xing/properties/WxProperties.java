@@ -1,6 +1,6 @@
 package com.xing.properties;
 
-import org.redisson.config.SingleServerConfig;
+import com.xing.global.config.RedisConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 

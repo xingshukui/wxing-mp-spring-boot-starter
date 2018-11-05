@@ -1,4 +1,4 @@
-package com.xing.properties;
+package com.xing.global.config;
 
 /**
  * @author : xingshukui

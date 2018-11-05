@@ -36,6 +36,27 @@
 2. 微信配置集中，基础功能封装，不同服务以jar包形式调用，不用重复造轮子，具体配置类WxCommonProperties，WxMessageAutoConfiguration....
 
 #### 实现功能
+ WxMpService中有各种api，如果想加入自己的东西，可以自己定义
+    
+    
+
+        @Bean
+        public WxMpService wxMpService(WxMpConfigStorage wxMpConfigStorage) {
+            WxMpService wxMpService = new WxMpServiceImpl();
+            wxMpService.setWxMpConfigStorage(wxMpConfigStorage);
+            return wxMpService;
+        }
 
 
-* 引入其他功能.....
+* 自定义
+
+    1.message，如下，WxMessageService中可加入自己的东西
+    
+        @Bean
+        public WxMessageService wxMessageService(WxMpConfigStorage wxMpConfigStorage) {
+            WxMpService wxMpService = new WxMpServiceImpl();
+            wxMpService.setWxMpConfigStorage(wxMpConfigStorage);
+            return new WxMessageService(wxMpService.getTemplateMsgService());
+        }
+
+* 其他自定义

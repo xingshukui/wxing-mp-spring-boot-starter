@@ -4,6 +4,8 @@ import com.xing.impl.WxMpSafeInRedisConfigStorage;
 import com.xing.properties.WxProperties;
 import me.chanjar.weixin.mp.api.WxMpConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;
+import me.chanjar.weixin.mp.api.WxMpService;
+import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
@@ -63,5 +65,12 @@ public class WxGlobalAutoConfiguration {
         configStorage.setToken(wxProperties.getToken());
         configStorage.setAesKey(wxProperties.getAesKey());
         return configStorage;
+    }
+
+    @Bean
+    public WxMpService wxMpService(WxMpConfigStorage wxMpConfigStorage) {
+        WxMpService wxMpService = new WxMpServiceImpl();
+        wxMpService.setWxMpConfigStorage(wxMpConfigStorage);
+        return wxMpService;
     }
 }
