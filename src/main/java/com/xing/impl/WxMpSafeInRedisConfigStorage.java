@@ -20,6 +20,8 @@ public class WxMpSafeInRedisConfigStorage extends WxMpInMemoryConfigStorage {
 
     private final static String CARDAPI_TICKET_KEY = "wechat_cardapi_ticket_";
 
+    private final static String REDIS_ACCESSTOKEN_LOCK = "accessToken_lock";
+
     /**
      * 使用连接池保证线程安全
      */
@@ -51,8 +53,7 @@ public class WxMpSafeInRedisConfigStorage extends WxMpInMemoryConfigStorage {
 
     @Override
     public Lock getAccessTokenLock() {
-        //todo 实现lock
-        return super.getAccessTokenLock();
+        return redissonClient.getLock(REDIS_ACCESSTOKEN_LOCK);
     }
 
     @Override
@@ -62,8 +63,7 @@ public class WxMpSafeInRedisConfigStorage extends WxMpInMemoryConfigStorage {
 
     @Override
     public boolean isAccessTokenExpired() {
-        //todo 判断过期？
-        return false;
+        return redissonClient.getBucket(accessTokenKey).remainTimeToLive() < 200;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class WxMpSafeInRedisConfigStorage extends WxMpInMemoryConfigStorage {
 
     @Override
     public void expireAccessToken() {
-        redissonClient.getBucket(accessTokenKey).delete();
+        redissonClient.getBucket(accessTokenKey).clearExpire();
     }
 
     @Override
@@ -83,8 +83,7 @@ public class WxMpSafeInRedisConfigStorage extends WxMpInMemoryConfigStorage {
 
     @Override
     public boolean isJsapiTicketExpired() {
-        //todo 判断过期?
-        return false;
+        return redissonClient.getBucket(jsapiTicketKey).remainTimeToLive() < 200;
     }
 
     @Override
@@ -94,7 +93,7 @@ public class WxMpSafeInRedisConfigStorage extends WxMpInMemoryConfigStorage {
 
     @Override
     public void expireJsapiTicket() {
-        redissonClient.getBucket(jsapiTicketKey).delete();
+        redissonClient.getBucket(jsapiTicketKey).clearExpire();
     }
 
     @Override
@@ -104,8 +103,7 @@ public class WxMpSafeInRedisConfigStorage extends WxMpInMemoryConfigStorage {
 
     @Override
     public boolean isCardApiTicketExpired() {
-        //todo 判断过期
-        return false;
+        return redissonClient.getBucket(cardapiTicketKey).remainTimeToLive() < 200;
     }
 
     @Override
@@ -115,6 +113,6 @@ public class WxMpSafeInRedisConfigStorage extends WxMpInMemoryConfigStorage {
 
     @Override
     public void expireCardApiTicket() {
-        redissonClient.getBucket(cardapiTicketKey).delete();
+        redissonClient.getBucket(cardapiTicketKey).clearExpire();
     }
 }
