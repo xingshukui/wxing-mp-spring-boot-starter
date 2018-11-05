@@ -20,7 +20,7 @@ public class WxMpSafeInRedisConfigStorage extends WxMpInMemoryConfigStorage {
 
     private final static String CARDAPI_TICKET_KEY = "wechat_cardapi_ticket_";
 
-    private final static String REDIS_ACCESSTOKEN_LOCK = "accessToken_lock";
+    private final static String REDIS_ACCESSTOKEN_LOCK = "accessToken_lock_";
 
     /**
      * 使用连接池保证线程安全
@@ -32,6 +32,8 @@ public class WxMpSafeInRedisConfigStorage extends WxMpInMemoryConfigStorage {
     private String jsapiTicketKey;
 
     private String cardapiTicketKey;
+
+    private String redisAccesstokenLock;
 
     public WxMpSafeInRedisConfigStorage(RedissonClient redissonClient) {
         this.redissonClient = redissonClient;
@@ -48,12 +50,13 @@ public class WxMpSafeInRedisConfigStorage extends WxMpInMemoryConfigStorage {
         this.accessTokenKey = ACCESS_TOKEN_KEY.concat(appId);
         this.jsapiTicketKey = JSAPI_TICKET_KEY.concat(appId);
         this.cardapiTicketKey = CARDAPI_TICKET_KEY.concat(appId);
+        this.redisAccesstokenLock = REDIS_ACCESSTOKEN_LOCK.concat(appId);
     }
 
 
     @Override
     public Lock getAccessTokenLock() {
-        return redissonClient.getLock(REDIS_ACCESSTOKEN_LOCK);
+        return redissonClient.getLock(redisAccesstokenLock);
     }
 
     @Override
