@@ -38,9 +38,9 @@ public class WxGlobalAutoConfiguration {
     public RedissonClient redissonClient() {
         Config config = new Config();
         SingleServerConfig singleServerConfig = config.useSingleServer();
-        singleServerConfig.setAddress(wxProperties.getRedisConfig().getAddress());
-        singleServerConfig.setPassword(wxProperties.getRedisConfig().getPassword());
-        singleServerConfig.setDatabase(wxProperties.getRedisConfig().getDatabase());
+        singleServerConfig.setAddress(wxProperties.getRedisProperties().getAddress());
+        singleServerConfig.setPassword(wxProperties.getRedisProperties().getPassword());
+        singleServerConfig.setDatabase(wxProperties.getRedisProperties().getDatabase());
         return Redisson.create(config);
     }
 

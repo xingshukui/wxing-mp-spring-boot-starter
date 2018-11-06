@@ -1,2 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.xing.global.config.WxGlobalAutoConfiguration,\
-com.xing.global.config.RedisConfig
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.xing.global.config.WxGlobalAutoConfiguration

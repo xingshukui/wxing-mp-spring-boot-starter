@@ -1,4 +1,4 @@
-package com.xing.global.config;
+package com.xing.properties;
 
 /**
  * @author : xingshukui
@@ -6,7 +6,7 @@ package com.xing.global.config;
  * @date : 2018/11/2 2:45 PM
  * @desc :
  */
-public class RedisConfig {
+public class RedisProperties {
     /**
      * address
      * 格式：redis://127.0.0.1:6379

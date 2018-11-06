@@ -1,6 +1,5 @@
 package com.xing.properties;
 
-import com.xing.global.config.RedisConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
@@ -19,7 +18,7 @@ public class WxProperties {
     private String aesKey;
 
     @NestedConfigurationProperty
-    private RedisConfig redisConfig;
+    private RedisProperties redisProperties;
 
     public String getAppId() {
         return appId;
@@ -53,11 +52,11 @@ public class WxProperties {
         this.aesKey = aesKey;
     }
 
-    public RedisConfig getRedisConfig() {
-        return redisConfig;
+    public RedisProperties getRedisProperties() {
+        return redisProperties;
     }
 
-    public void setRedisConfig(RedisConfig redisConfig) {
-        this.redisConfig = redisConfig;
+    public void setRedisProperties(RedisProperties redisProperties) {
+        this.redisProperties = redisProperties;
     }
 }
